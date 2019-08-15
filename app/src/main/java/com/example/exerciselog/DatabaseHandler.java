@@ -65,7 +65,7 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
-    //TODO LOAD HANDLER Modular fo rweight and exercises
+    //TODO LOAD HANDLER Modular for weight and exercises
     public String loadHandler(String tableName){
 
         String result = "";
@@ -110,17 +110,68 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
             // means search has returned data
             if (cursor.moveToFirst()) {
                 do {
-                    String exId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
- // display your search result here in RecyclerView or in any manner
+                    String exId = cursor.getString(cursor.getColumnIndex(COLUMN_ID));
+                    String exName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+                    String exCat = cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY));
+                    String exRep = cursor.getString(cursor.getColumnIndex(COLUMN_REPS));
+                    String exLen = cursor.getString(cursor.getColumnIndex(COLUMN_LENGTH));
+                    String exWei = cursor.getString(cursor.getColumnIndex(COLUMN_WEIGHT));
+                    String exDis = cursor.getString(cursor.getColumnIndex(COLUMN_DISTANCE));
+                    String exCom = cursor.getString(cursor.getColumnIndex(COLUMN_COMMENT));
+                    String exTim = cursor.getString(cursor.getColumnIndex(COLUMN_TIME));
+                    String exDat = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
+
+
+
+
+
+
+
+                // display your search result
                 } while (cursor.moveToNext());
             }
         } else {
-            Toast.makeText(context, "No data was found in the system!", Toast.LEGNTH_LONG).show();
+            Toast.makeText(context, "No exercises found with that name", Toast.LEGNTH_LONG).show();
         }
         cursor.close();
     }
 
     //TODO
-    public boolean deleteHandler(int exerciseId){};
+    public boolean deleteHandler(int exerciseId){
+        boolean result = false;
+
+        String query = "Select*FROM" + EXERCISE_TABLE + "WHERE" + COLUMN_ID + "= '" + String.valueOf(exerciseId) + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        Exercise exercise = new Exercise();
+        if (cursor.moveToFirst()) {
+
+            exerciseId.setID(Integer.parseInt(cursor.getString(0)));
+
+            db.delete(TABLE_NAME, COLUMN_ID + "=?",
+
+                    newString[] {
+
+                String.valueOf(student.getID())
+
+            });
+
+            cursor.close();
+
+            result = true;
+
+        }
+
+        db.close();
+
+        return result;
+
+
+
+
+    };
     public boolean updateHandler(int exerciseId){};
 }
