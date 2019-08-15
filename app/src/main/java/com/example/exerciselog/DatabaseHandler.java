@@ -11,10 +11,12 @@ import android.content.Context;
 import android.content.ContentValues;
 
 import android.database.Cursor;
-import android.widget.Toast;
 
 import java.sql.Date;
+import java.sql.SQLInput;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class        DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -102,7 +104,8 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
     public void addHandler(Weightlog weightLog){
 
     }
-    public Exercise[] findHandler( String exerciseName){
+    public List<Exercise> findHandler(String exerciseName){
+        List<Exercise> results = new ArrayList<>();
       SQLiteDatabase  db =  this.getWritableDatabase();
         String sql = "SELECT * FROM " + EXERCISE_TABLE + " WHERE " + COLUMN_NAME+ " LIKE '%" + exerciseName + "%'";
         Cursor cursor = db.rawQuery(sql, null);
@@ -110,54 +113,44 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
             // means search has returned data
             if (cursor.moveToFirst()) {
                 do {
-                    String exId = cursor.getString(cursor.getColumnIndex(COLUMN_ID));
-                    String exName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                    String exCat = cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY));
-                    String exRep = cursor.getString(cursor.getColumnIndex(COLUMN_REPS));
-                    String exLen = cursor.getString(cursor.getColumnIndex(COLUMN_LENGTH));
-                    String exWei = cursor.getString(cursor.getColumnIndex(COLUMN_WEIGHT));
-                    String exDis = cursor.getString(cursor.getColumnIndex(COLUMN_DISTANCE));
-                    String exCom = cursor.getString(cursor.getColumnIndex(COLUMN_COMMENT));
-                    String exTim = cursor.getString(cursor.getColumnIndex(COLUMN_TIME));
-                    String exDat = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
+                    Exercise ex = new Exercise();
 
+                    ex.setExerciseId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_ID))));
+                    ex.setExerciseName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
+                    ex.setExerciseCategory(cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY)));
+                    ex.setExerciseReps(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_REPS))));
+                    ex.setExerciseLength(cursor.getString(cursor.getColumnIndex(COLUMN_LENGTH)));
+                    ex.setExerciseWeight(Float.parseFloat(cursor.getString(cursor.getColumnIndex(COLUMN_WEIGHT))));
+                    ex.setExerciseDistance(Float.parseFloat(cursor.getString(cursor.getColumnIndex(COLUMN_DISTANCE))));
+                    ex.setExerciseComment(cursor.getString(cursor.getColumnIndex(COLUMN_COMMENT)));
+                    ex.setExerciseTime(cursor.getString(cursor.getColumnIndex(COLUMN_TIME)));
+                    ex.setExerciseDate(cursor.getString(cursor.getColumnIndex(COLUMN_DATE)));
 
-
-
-
-
+                    results.add(ex);
 
                 // display your search result
                 } while (cursor.moveToNext());
             }
         } else {
-            Toast.makeText(context, "No exercises found with that name", Toast.LEGNTH_LONG).show();
-        }
+                System.err.println("Could not find exercise!");
+            }
         cursor.close();
+        db.close();
+        return results;
     }
 
     //TODO
     public boolean deleteHandler(int exerciseId){
         boolean result = false;
-
-        String query = "Select*FROM" + EXERCISE_TABLE + "WHERE" + COLUMN_ID + "= '" + String.valueOf(exerciseId) + "'";
-
+        String query = "Select*FROM" + EXERCISE_TABLE + "WHERE" + COLUMN_ID + "= '" + exerciseId + "'";
         SQLiteDatabase db = this.getWritableDatabase();
-
         Cursor cursor = db.rawQuery(query, null);
-
         Exercise exercise = new Exercise();
         if (cursor.moveToFirst()) {
-
-            exerciseId.setID(Integer.parseInt(cursor.getString(0)));
-
-            db.delete(TABLE_NAME, COLUMN_ID + "=?",
-
-                    newString[] {
-
-                String.valueOf(student.getID())
-
-            });
+            exercise.setExerciseId(Integer.parseInt(cursor.getString(0)));
+            db.delete(EXERCISE_TABLE, COLUMN_ID + "=?",
+                    new String[] {
+                String.valueOf(exercise.getExerciseId())});
 
             cursor.close();
 
@@ -173,5 +166,23 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
 
 
     };
-    public boolean updateHandler(int exerciseId){};
+    public boolean updateHandler(int id,
+                                 String name,String category, int reps, float weight,
+                                 float distance, String time, String date, String length,
+                                 String comment){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues val = new ContentValues();
+
+        val.put(COLUMN_ID, id);
+        val.put(COLUMN_NAME, name);
+        val.put(COLUMN_CATEGORY, category);
+        val.put(COLUMN_REPS, reps);
+        val.put(COLUMN_WEIGHT, weight);
+        val.put(COLUMN_DISTANCE, distance);
+        val.put(COLUMN_TIME, time);
+        val.put(COLUMN_DATE, date);
+        val.put(COLUMN_LENGTH, length);
+        val.put(COLUMN_COMMENT, comment);
+        return db.update(EXERCISE_TABLE, val,  COLUMN_ID + "=" +id ,null) > 0;
+    };
 }
