@@ -40,10 +40,9 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
     //TODO WEIGHT TABLE
 
 
-    public DatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DatabaseHandler(Context context, String name) {
+        super(context, name, null, DATABASE_VERSION);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -166,6 +165,7 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
 
 
     };
+
     public boolean updateHandler(int id,
                                  String name,String category, int reps, float weight,
                                  float distance, String time, String date, String length,
