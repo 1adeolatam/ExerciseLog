@@ -16,6 +16,7 @@ import java.sql.Date;
 import java.sql.SQLInput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class        DatabaseHandler extends SQLiteOpenHelper {
@@ -185,4 +186,27 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
         val.put(COLUMN_COMMENT, comment);
         return db.update(EXERCISE_TABLE, val,  COLUMN_ID + "=" +id ,null) > 0;
     };
+
+    // Get Exercise Details
+    public ArrayList<HashMap<String, String>> GetExercise(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<HashMap<String, String>> exerciseList = new ArrayList<>();
+        String query = "SELECT * FROM "+ EXERCISE_TABLE;
+        Cursor cursor = db.rawQuery(query,null);
+        while (cursor.moveToNext()){
+            HashMap<String,String> val = new HashMap<>();
+            val.put(COLUMN_ID, cursor.getString(cursor.getColumnIndex(COLUMN_ID)));
+            val.put(COLUMN_NAME, cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
+            val.put(COLUMN_CATEGORY, cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY)));
+            val.put(COLUMN_REPS, cursor.getString(cursor.getColumnIndex(COLUMN_REPS)));
+            val.put(COLUMN_WEIGHT, cursor.getString(cursor.getColumnIndex(COLUMN_WEIGHT)));
+            val.put(COLUMN_DISTANCE, cursor.getString(cursor.getColumnIndex(COLUMN_DISTANCE)));
+            val.put(COLUMN_TIME, cursor.getString(cursor.getColumnIndex(COLUMN_TIME)));
+            val.put(COLUMN_DATE, cursor.getString(cursor.getColumnIndex(COLUMN_DATE)));
+            val.put(COLUMN_LENGTH, cursor.getString(cursor.getColumnIndex(COLUMN_LENGTH)));
+            val.put(COLUMN_COMMENT, cursor.getString(cursor.getColumnIndex(COLUMN_COMMENT)));
+            exerciseList.add(val);
+        }
+        return  exerciseList;
+    }
 }
