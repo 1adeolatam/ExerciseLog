@@ -19,81 +19,43 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int  BODYMODE= 800;
-    private static final int STRENGTHMODE = 401;
-    private static final int CARDIOMODE = 748;
 
-    private int currentMode =BODYMODE;
-
-    EditText ExerciseInp;
-    EditText CategoryInp;
-    EditText WeightInp;
-    EditText RepsInp;
-    EditText CommentInp;
-    EditText BodyWeightInp;
-    EditText DistanceInp;
-    EditText TimeInp;
+    EditText ExerciseInp,CategoryInp,
+            WeightInp,RepsInp,CommentInp,DistanceInp,TimeInp;
 
     String Exercise;
     String Category;
     Double  Weight;
-    Double BodyWeight;
     Double Distance;
     Integer Reps;
     String Comment;
     String TimeforCardio;
 
-    Spinner entryType;
+
     Button btnSubmit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DistanceInp = (EditText)  findViewById(R.id.DistanceView);
+        TimeInp = (EditText)findViewById(R.id.TimeView);
+        CommentInp = (EditText)findViewById(R.id.CommentView);
+        ExerciseInp = (EditText)findViewById(R.id.NameView);
+        CategoryInp = (EditText) findViewById(R.id.CategoryView);
+        WeightInp = (EditText) findViewById(R.id.WeightView);
+        RepsInp = (EditText) findViewById(R.id.RepsView);
 
-        entryType = findViewById(R.id.entryType);
         btnSubmit =  findViewById(R.id.btnSubmit);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.exercise_type_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        entryType.setAdapter(adapter);
 
 
 
-        //BodyWeight
-        //TODO AUTOMATIC TIME FOR BODY WEIGHT ENTRY FROM PHONE LOCAL
-        // DATE AUTOMATIC
-        BodyWeightInp = findViewById(R.id.BodyWeightView);
-        CommentInp =  findViewById(R.id.CommentView);
 
 
-        //Cardio
-        //TODO DATE AUTOMATIC
-        ExerciseInp = findViewById(R.id.ExerciseView);
-        DistanceInp =   findViewById(R.id.DistanceView);
-        TimeInp = findViewById(R.id.TimeView);
-        CommentInp = findViewById(R.id.CommentView);
 
-
-        //Strength
-        //TODO DATE AUTOMATIC
-        ExerciseInp = findViewById(R.id.ExerciseView);
-        CategoryInp =  findViewById(R.id.CategoryView);
-        WeightInp = findViewById(R.id.WeightView);
-        RepsInp =  findViewById(R.id.RepsView);
-        CommentInp =  findViewById(R.id.CommentView);
-        makeAllViewsInvisible();
-        clearAllInput();
-
-
-        addListenerOnSpinnerItemSelection();
-        //TODO DATABASE
-        //Upload day's exercise automatically at midnight
     }
-    private void clearAllInput(){
+   /* private void clearAllInput(){
          ExerciseInp.getText().clear();
          CategoryInp.getText().clear();
          WeightInp.getText().clear();
@@ -114,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
         DistanceInp.setVisibility(View.INVISIBLE);
         TimeInp.setVisibility(View.INVISIBLE);
     }
-
-    private void changeMode(){
+*/
+   /* private void changeMode(){
         //Changes visibllity based on current mode
         clearAllInput();
         makeAllViewsInvisible();
@@ -135,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
             CommentInp.setVisibility(View.VISIBLE);
         }
 
-    }
+    }*/
 
-    private void addListenerOnSpinnerItemSelection(){
+/*    private void addListenerOnSpinnerItemSelection(){
         entryType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
@@ -151,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        changeMode();
-    }
+        //changeMode();
+    }*/
 
 
     public void addListenerOnButton() {
@@ -164,10 +126,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Submit exercise to database
 
-                Toast.makeText(MyAndroidAppActivity.this,
-                        "OnClickListener : " +
-                                "\nSpinner 1 : "+ String.valueOf(spinner1.getSelectedItem()) +
-                        Toast.LENGTH_SHORT).show();
+
             }
 
         });

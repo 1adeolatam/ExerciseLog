@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,16 +24,17 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.details);
         DatabaseHandler db = new DatabaseHandler(this, DatabaseHandler.EXERCISE_TABLE);
-        ArrayList<HashMap<String, String>> userList = db.GetExercise();
+        ArrayList<HashMap<String, String>> exerciseList = db.GetExercise();
 
-        ListView lv = (ListView) findViewById(R.id.user_list);
-        ListAdapter adapter = new SimpleAdapter(DetailsActivity.this, userList, R.layout.list_row,new String[]{"name","designation","location"}, new int[]{R.id.list_row_name, R.id.designation, R.id.location});
+        ListView lv = (ListView) findViewById(R.id.exercise_list);
+        ListAdapter adapter = new SimpleAdapter(ExerciseActivity.this, exerciseList, R.layout.list_row,
+                new String[]{"name","reps","weight","date"}, new int[]{R.id.name, R.id.rep, R.id.weight, R.id.date});
         lv.setAdapter(adapter);
-        Button back = (Button)findViewById(R.id.btnBack);
+        Button back = (Button)findViewById(R.id.back_button);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(DetailsActivity.this,MainActivity.class);
+                intent = new Intent(ExerciseActivity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
