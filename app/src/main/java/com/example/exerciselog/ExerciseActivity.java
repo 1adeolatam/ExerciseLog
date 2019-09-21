@@ -17,20 +17,18 @@ import java.util.HashMap;
 public class ExerciseActivity extends AppCompatActivity {
     Intent intent;
 
-    Button backButton;
-
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.details);
-        DatabaseHandler db = new DatabaseHandler(this, DatabaseHandler.EXERCISE_TABLE);
+        DatabaseHandler db = new DatabaseHandler(this);
         ArrayList<HashMap<String, String>> exerciseList = db.GetExercise();
 
-        ListView lv = (ListView) findViewById(R.id.exercise_list);
+        ListView lv = findViewById(R.id.exercise_list);
         ListAdapter adapter = new SimpleAdapter(ExerciseActivity.this, exerciseList, R.layout.list_row,
                 new String[]{"name","reps","weight","date"}, new int[]{R.id.name, R.id.rep, R.id.weight, R.id.date});
         lv.setAdapter(adapter);
-        Button back = (Button)findViewById(R.id.back_button);
+        Button back = findViewById(R.id.back_button);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

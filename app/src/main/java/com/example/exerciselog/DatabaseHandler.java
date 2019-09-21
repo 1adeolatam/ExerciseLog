@@ -1,29 +1,18 @@
 package com.example.exerciselog;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteDatabase;
-
-import android.database.sqlite.SQLiteOpenHelper;
-
-import android.content.Context;
-
 import android.content.ContentValues;
-
+import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
-import java.sql.Date;
-import java.sql.SQLInput;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class        DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "HealthLog.db";
     public static final String EXERCISE_TABLE = "Exercise";
-    public static final String WEIGHT_TABLE = "Weight";
 
     //EXERCISE COLUMNS
     public static final String COLUMN_ID = "exerciseID";
@@ -41,8 +30,8 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
     //TODO WEIGHT TABLE
 
 
-    public DatabaseHandler(Context context, String name) {
-        super(context, name, null, DATABASE_VERSION);
+    public DatabaseHandler(Context context) {
+        super(context, EXERCISE_TABLE, null, DATABASE_VERSION);
     }
 
     @Override
@@ -67,7 +56,6 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
-    //TODO LOAD HANDLER Modular for weight and exercises
     public String loadHandler(String tableName){
 
         String result = "";
@@ -77,7 +65,7 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             int result_0 = cursor.getInt(0);
             String result_1 = cursor.getString(1);
-            result += String.valueOf(result_0) + " " + result_1 +
+            result += result_0 + " " + result_1 +
                     System.getProperty("line.separator");
         }
         cursor.close();
@@ -86,7 +74,6 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
     }
     public void addHandler(Exercise exercise){
         ContentValues val = new ContentValues();
-        val.put(COLUMN_ID, exercise.getExerciseId());
         val.put(COLUMN_NAME, exercise.getExerciseName());
         val.put(COLUMN_CATEGORY, exercise.getExerciseCategory());
         val.put(COLUMN_REPS, exercise.getExerciseReps());
@@ -101,9 +88,7 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
         db.insert(EXERCISE_TABLE, null, val);
         db.close();
     }
-    public void addHandler(Weightlog weightLog){
 
-    }
     public List<Exercise> findHandler(String exerciseName){
         List<Exercise> results = new ArrayList<>();
       SQLiteDatabase  db =  this.getWritableDatabase();
@@ -163,9 +148,7 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
         return result;
 
 
-
-
-    };
+    }
 
     public boolean updateHandler(int id,
                                  String name,String category, int reps, float weight,
@@ -185,7 +168,7 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
         val.put(COLUMN_LENGTH, length);
         val.put(COLUMN_COMMENT, comment);
         return db.update(EXERCISE_TABLE, val,  COLUMN_ID + "=" +id ,null) > 0;
-    };
+    }
 
     // Get Exercise Details
     public ArrayList<HashMap<String, String>> GetExercise(){
