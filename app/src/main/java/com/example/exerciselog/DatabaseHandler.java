@@ -38,16 +38,16 @@ public class        DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //TODO FIRST
         String CREATE_TABLE = "CREATE TABLE " + EXERCISE_TABLE +
-                "( " + COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " ( " + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COLUMN_NAME + " TEXT," +
                 COLUMN_CATEGORY + " TEXT," +
                 COLUMN_REPS + " INTEGER,"+
                 COLUMN_LENGTH + " TEXT,"+
                 COLUMN_WEIGHT + " REAL,"+
                 COLUMN_DISTANCE + " REAL,"+
-                COLUMN_COMMENT + "TEXT,"+
+                COLUMN_COMMENT + " TEXT," +
                 COLUMN_TIME + " TEXT,"+
-                COLUMN_DATE + " TEXT )";
+                COLUMN_DATE + " TEXT)";
         db.execSQL(CREATE_TABLE);
 
     }

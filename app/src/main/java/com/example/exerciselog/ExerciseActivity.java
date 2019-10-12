@@ -28,7 +28,8 @@ public class ExerciseActivity extends AppCompatActivity {
         ListAdapter adapter = new SimpleAdapter(ExerciseActivity.this, exerciseList, R.layout.list_row,
                 new String[]{"name","reps","weight","date"}, new int[]{R.id.name, R.id.rep, R.id.weight, R.id.date});
         lv.setAdapter(adapter);
-        Button back = findViewById(R.id.back_button);
+
+        Button back = findViewById(R.id.back_button_ex);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

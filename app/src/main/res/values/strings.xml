@@ -10,6 +10,7 @@
     <string name="reps">Reps</string>
     <string name="weight">Weight</string>
     <string name="comment">Comment</string>
+    <string name="back">Back</string>
 
     <string-array name="exercise_type_array">
     <item>Body</item>

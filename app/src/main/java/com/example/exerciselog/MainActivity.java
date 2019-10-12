@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO Make null entries have default values
                 com.example.exerciselog.Exercise ex = new Exercise();
                 ex.setExerciseName(ExerciseInp.getText().toString());
                 ex.setExerciseCategory(CategoryInp.getText().toString());
