@@ -22,11 +22,11 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.details);
         DatabaseHandler db = new DatabaseHandler(this);
-        ArrayList<HashMap<String, String>> exerciseList = db.GetExercise();
+        ArrayList<HashMap<String, String>> exerciseList = db.GetExercises();
 
         ListView lv = findViewById(R.id.exercise_list);
         ListAdapter adapter = new SimpleAdapter(ExerciseActivity.this, exerciseList, R.layout.list_row,
-                new String[]{"name","reps","weight","date"}, new int[]{R.id.name, R.id.rep, R.id.weight, R.id.date});
+                new String[]{"name", "category", "reps", "weight", "date"}, new int[]{R.id.name, R.id.category, R.id.rep, R.id.weight, R.id.date});
         lv.setAdapter(adapter);
 
         Button back = findViewById(R.id.back_button_ex);

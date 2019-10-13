@@ -6,13 +6,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Spinner
-        android:id="@+id/entryType"
-        android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:entries="@array/exercise_type_array"
-        android:prompt="@string/exercise_prompt" />
-
     <EditText
         android:id="@+id/NameView"
         android:layout_width="match_parent"

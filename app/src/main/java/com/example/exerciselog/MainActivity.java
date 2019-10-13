@@ -9,6 +9,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
+
 //Added intent
 
 public class MainActivity extends AppCompatActivity {
@@ -34,18 +40,60 @@ public class MainActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Make null entries have default values
-                com.example.exerciselog.Exercise ex = new Exercise();
-                ex.setExerciseName(ExerciseInp.getText().toString());
-                ex.setExerciseCategory(CategoryInp.getText().toString());
-                ex.setExerciseComment(CommentInp.getText().toString());
-                ex.setExerciseLength(TimeInp.getText().toString());
-                ex.setExerciseDistance(Float.parseFloat(DistanceInp.getText().toString()));
-                ex.setExerciseReps(Integer.parseInt(RepsInp.getText().toString()));
-                ex.setExerciseWeight(Float.parseFloat(WeightInp.getText().toString()));
+
+                String name;
+                if (ExerciseInp.getText().toString().equals("")) {
+                    name = "N/A" + "\n";
+                } else {
+                    name = ExerciseInp.getText().toString() + "\n";
+                }
+
+                String category;
+                if (CategoryInp.getText().toString().equals("")) {
+                    category = "N/A" + "\n";
+                } else {
+                    category = CategoryInp.getText().toString() + "\n";
+                }
+
+                String comment;
+                if (CommentInp.getText().toString().equals("")) {
+                    comment = "N/A" + "\n";
+                } else {
+                    comment = CommentInp.getText().toString() + "\n";
+                }
+
+                Float distance;
+                if (DistanceInp.getText().toString().equals("")) {
+                    distance = Float.parseFloat("0.0f");
+                } else {
+                    distance = Float.parseFloat(DistanceInp.getText().toString());
+                }
+                Integer reps;
+                if (RepsInp.getText().toString().equals("")) {
+                    reps = Integer.parseInt("0");
+                } else {
+                    reps = Integer.parseInt(RepsInp.getText().toString());
+                }
+                Float weight;
+                if (WeightInp.getText().toString().equals("")) {
+                    weight = Float.parseFloat("0.0f");
+                } else {
+                    weight = Float.parseFloat(WeightInp.getText().toString());
+                }
+
+                String dateStr;
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                dateStr = dateFormat.format(date) + "\n";
+
+
+                String time;
+                DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                time = timeFormat.format(date) + "\n";
+
 
                 DatabaseHandler db = new DatabaseHandler(MainActivity.this);
-                db.addHandler(ex);
+                db.addHandler(name, category, reps, weight, distance, time, dateStr, comment);
                 intent = new Intent(MainActivity.this, ExerciseActivity.class);
                 startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Exercise Inserted Successfully",

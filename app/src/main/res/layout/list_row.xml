@@ -9,24 +9,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="17dp"/>
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:textSize="17sp"
+        android:textStyle="bold" />
     <TextView
         android:id="@+id/rep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="13dp"
+        android:textSize="13sp"
         android:layout_below="@id/name"/>
     <TextView
         android:id="@+id/weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="13dp"
+        android:textSize="13sp"
         android:layout_alignBaseline="@id/rep"
         android:layout_alignBottom="@id/rep"/>
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="13dp"
+        android:textSize="13sp"
         android:layout_alignBaseline="@id/name"/>
 </RelativeLayout>
