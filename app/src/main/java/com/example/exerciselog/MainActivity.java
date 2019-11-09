@@ -1,6 +1,7 @@
 package com.example.exerciselog;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,17 +16,18 @@ import java.util.Date;
 
 
 
-//Added intent
-
 public class MainActivity extends AppCompatActivity {
-
+    DatabaseHandler db;
     EditText ExerciseInp,CategoryInp,
             WeightInp,RepsInp,CommentInp,DistanceInp,TimeInp;
-    Button btnSubmit;
+    Button btnSubmit, viewData;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        db = new DatabaseHandler(MainActivity.this);
+
         setContentView(R.layout.activity_main);
         DistanceInp = findViewById(R.id.DistanceView);
         TimeInp = findViewById(R.id.TimeView);
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         RepsInp = findViewById(R.id.RepsView);
 
         btnSubmit =  findViewById(R.id.btnSubmit);
+
+        viewData = findViewById(R.id.viewData);
+
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,15 +97,49 @@ public class MainActivity extends AppCompatActivity {
                 time = timeFormat.format(date) + "\n";
 
 
-                DatabaseHandler db = new DatabaseHandler(MainActivity.this);
-                db.addHandler(name, category, reps, weight, distance, time, dateStr, comment);
-                intent = new Intent(MainActivity.this, ExerciseActivity.class);
-                startActivity(intent);
-                Toast.makeText(getApplicationContext(), "Exercise Inserted Successfully",
-                        Toast.LENGTH_SHORT).show();
+                Boolean isInserted = db.insertData(name, category, reps, weight, distance, time, dateStr, comment);
+
+                if (isInserted) {
+                    Toast.makeText(getApplicationContext(), "Exercise Inserted Successfully",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Exercise NOT Inserted Successfully",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
 
+    }
+
+    public void displayData() {
+        viewData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cursor res = db.getAllData();
+                if (res.getColumnCount() == 0) {
+                    //Empty
+                    Toast.makeText(getApplicationContext(), "Exercise Log Empty",
+                            Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
+                StringBuffer data = new StringBuffer();
+                while (res.moveToNext()) {
+                    data.append("Name " + res.getString(1) + "\n");
+                    data.append("Category " + res.getString(2) + "\n");
+                    data.append("Reps " + res.getString(3) + "\n");
+                    data.append("Weight " + res.getString(4) + "\n");
+                    data.append("Distance " + res.getString(5) + "\n");
+                    data.append("Comment " + res.getString(6) + "\n");
+                    data.append("Time " + res.getString(7) + "\n");
+                    data.append("Date " + res.getString(8) + "\n\n");
+                }
+
+                intent = new Intent(MainActivity.this, ExerciseActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 }

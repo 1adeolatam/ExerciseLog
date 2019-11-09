@@ -21,6 +21,7 @@ public class ExerciseActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.details);
+
         DatabaseHandler db = new DatabaseHandler(this);
         ArrayList<HashMap<String, String>> exerciseList = db.GetExercises();
 

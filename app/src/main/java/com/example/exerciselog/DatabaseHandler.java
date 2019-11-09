@@ -54,7 +54,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void addHandler(String name, String category, Integer reps, Float weight, Float distance, String time, String date, String comment) {
+    public Boolean insertData(String name, String category, Integer reps, Float weight, Float distance, String time, String date, String comment) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues val = new ContentValues();
         val.put(COLUMN_NAME, name);
@@ -67,8 +67,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         val.put(COLUMN_COMMENT, comment);
 
 
-        db.insert(EXERCISE_TABLE, null, val);
-        db.close();
+        long res = db.insert(EXERCISE_TABLE, null, val);
+
+        return res != -1;
+    }
+
+    public Cursor getAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM " + EXERCISE_TABLE, null);
+
+        return result;
     }
 
     public void deleteHandler(int exerciseId) {
