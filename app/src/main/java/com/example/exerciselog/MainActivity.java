@@ -100,19 +100,14 @@ public class MainActivity extends AppCompatActivity {
                 Boolean isInserted = db.insertData(name, category, reps, weight, distance, time, dateStr, comment);
 
                 if (isInserted) {
-                    Toast.makeText(getApplicationContext(), "Exercise Inserted Successfully",
+                    Toast.makeText(getApplicationContext(), name + "Inserted Successfully",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Exercise NOT Inserted Successfully",
+                    Toast.makeText(getApplicationContext(), name + "NOT Inserted",
                             Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
-    }
-
-    public void displayData() {
         viewData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
