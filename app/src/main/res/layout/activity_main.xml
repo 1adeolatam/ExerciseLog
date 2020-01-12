@@ -8,68 +8,74 @@
 
     <EditText
         android:id="@+id/NameView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Excercise Name"
+        android:layout_centerHorizontal="true"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/CategoryView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/NameView"
         android:ems="10"
         android:hint="Category"
+        android:layout_centerHorizontal="true"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/WeightView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/CategoryView"
         android:autofillHints=""
         android:ems="10"
         android:hint="Weight"
+        android:layout_centerHorizontal="true"
         android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/RepsView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/WeightView"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/reps"
         android:inputType="number"
-        tools:targetApi="o" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/CommentView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/RepsView"
         android:autofillHints=""
         android:ems="10"
         android:hint="Comment"
+        android:layout_centerHorizontal="true"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/TimeView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/CommentView"
         android:ems="10"
         android:hint="Time"
+        android:layout_centerHorizontal="true"
         android:inputType="time" />
 
     <EditText
         android:id="@+id/DistanceView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/TimeView"
         android:ems="10"
         android:hint="Distance"
+        android:layout_centerHorizontal="true"
         android:inputType="numberDecimal" />
 
     <Button
@@ -77,7 +83,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/DistanceView"
-        android:layout_marginTop="3dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:text="@string/submitButton" />
 
     <Button
@@ -85,9 +92,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/DistanceView"
-        android:layout_marginLeft="220dp"
-        android:layout_marginTop="3dp"
-        android:layout_toRightOf="@id/btnSubmit"
+        android:layout_marginLeft="159dp"
+        android:layout_marginTop="96dp"
+
         android:text="View Data" />
 
 

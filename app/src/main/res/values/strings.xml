@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<string name="app_name">ExerciseLog</string>
-<string name="exercise_prompt">Choose Exercise Type</string>
+    <string name="app_name">ExerciseLog</string>
+    <string name="exercise_prompt">Choose Exercise Type</string>
     <string name="submitButton">submit</string>
     <string name="exercise_category">Exercise Category</string>
     <string name="exercise">Exercise</string>
@@ -13,9 +13,9 @@
     <string name="back">Back</string>
 
     <string-array name="exercise_type_array">
-    <item>Body</item>
-    <item>Cardio</item>
-    <item>Strength</item>
-</string-array>
+        <item>Body</item>
+        <item>Cardio</item>
+        <item>Strength</item>
+    </string-array>
 
 </resources>
