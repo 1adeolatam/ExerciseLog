@@ -58,44 +58,43 @@
         android:layout_centerHorizontal="true"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/TimeView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/CommentView"
-        android:ems="10"
-        android:hint="Time"
-        android:layout_centerHorizontal="true"
-        android:inputType="time" />
 
     <EditText
         android:id="@+id/DistanceView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/TimeView"
+        android:layout_below="@id/CommentView"
         android:ems="10"
         android:hint="Distance"
         android:layout_centerHorizontal="true"
         android:inputType="numberDecimal" />
+
 
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/DistanceView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="@android:dimen/app_icon_size"
+        android:layout_marginTop="11dp"
         android:text="@string/submitButton" />
 
     <Button
-        android:id="@+id/viewData"
+        android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/DistanceView"
-        android:layout_marginLeft="159dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginLeft="148dp"
+        android:layout_marginTop="11dp"
+        android:layout_toRightOf="@id/btnSubmit"
+        android:text="Search" />
 
-        android:text="View Data" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="327dp"
+        android:layout_below="@+id/btnSubmit"
+        android:scrollbars="vertical" />
 
 
 </RelativeLayout>

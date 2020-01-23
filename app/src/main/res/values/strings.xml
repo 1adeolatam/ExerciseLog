@@ -2,20 +2,7 @@
 <resources>
 
     <string name="app_name">ExerciseLog</string>
-    <string name="exercise_prompt">Choose Exercise Type</string>
     <string name="submitButton">submit</string>
-    <string name="exercise_category">Exercise Category</string>
-    <string name="exercise">Exercise</string>
-    <string name="bodyweight">BodyWeight</string>
     <string name="reps">Reps</string>
-    <string name="weight">Weight</string>
-    <string name="comment">Comment</string>
-    <string name="back">Back</string>
-
-    <string-array name="exercise_type_array">
-        <item>Body</item>
-        <item>Cardio</item>
-        <item>Strength</item>
-    </string-array>
 
 </resources>

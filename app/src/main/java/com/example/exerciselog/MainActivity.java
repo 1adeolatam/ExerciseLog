@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,7 @@ import static com.example.exerciselog.DatabaseHandler.COLUMN_CATEGORY;
 import static com.example.exerciselog.DatabaseHandler.COLUMN_COMMENT;
 import static com.example.exerciselog.DatabaseHandler.COLUMN_DATE;
 import static com.example.exerciselog.DatabaseHandler.COLUMN_DISTANCE;
+import static com.example.exerciselog.DatabaseHandler.COLUMN_ID;
 import static com.example.exerciselog.DatabaseHandler.COLUMN_NAME;
 import static com.example.exerciselog.DatabaseHandler.COLUMN_REPS;
 import static com.example.exerciselog.DatabaseHandler.COLUMN_WEIGHT;
@@ -28,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHandler dbh;
     private EditText ExerciseInp, CategoryInp,
             WeightInp, RepsInp, CommentInp, DistanceInp;
-    Button btnSubmit, viewData;
+    Button btnSubmit;
+    Button btnSearch;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,20 @@ public class MainActivity extends AppCompatActivity {
         exAdapter = new ExerciseLogAdapter(this, getAllItems());
         recyclerView.setAdapter(exAdapter);
 
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+                removeItem((long) viewHolder.itemView.getTag());
+
+            }
+        }).attachToRecyclerView(recyclerView);
+
 
         DistanceInp = findViewById(R.id.DistanceView);
         CommentInp = findViewById(R.id.CommentView);
@@ -53,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         btnSubmit =  findViewById(R.id.btnSubmit);
 
-        viewData = findViewById(R.id.viewData);
 
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -103,12 +120,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewData.setOnClickListener(new View.OnClickListener() {
+        btnSearch = findViewById(R.id.btnSearch);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Send to new Activity
+                searchData();
 
             }
         });
+
 
 
     }
@@ -127,6 +149,19 @@ public class MainActivity extends AppCompatActivity {
         exAdapter.swapCursor(getAllItems());
 
 
+        //   ExerciseInp.getText().clear();
+        //  CategoryInp.getText().clear();
+        //  WeightInp.getText().clear();
+        //  RepsInp.getText().clear();
+        CommentInp.getText().clear();
+        DistanceInp.getText().clear();
+    }
+
+    public void searchData() {
+        exAdapter.swapCursor(getSearch(ExerciseInp.getText().toString(), CategoryInp.getText().toString()));
+
+        //Clear all input strings
+
         ExerciseInp.getText().clear();
         CategoryInp.getText().clear();
         WeightInp.getText().clear();
@@ -135,6 +170,11 @@ public class MainActivity extends AppCompatActivity {
         DistanceInp.getText().clear();
     }
 
+    private void removeItem(long id) {
+        database.delete(TABLE_NAME,
+                COLUMN_ID + "=" + id, null);
+        exAdapter.swapCursor(getAllItems());
+    }
     private Cursor getAllItems() {
         return database.query(TABLE_NAME,
                 null,
@@ -145,11 +185,29 @@ public class MainActivity extends AppCompatActivity {
                 COLUMN_DATE + " DESC");
     }
 
-    public void vieData() {
-        intent = new Intent(this, Exercise.class);
+    public Cursor getSearch(String name, String category) {
+        //If both are null, just return entire database
+        if (category.trim().equals("") && name.trim().equals("")) {
+            return database.query(TABLE_NAME,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    COLUMN_DATE + " DESC");
+        }
 
-        startActivity(intent);
 
+        if (name.trim().equals("")) {
+            name = "N/A";
+        }
+        if (category.trim().equals("")) {
+            category = "N/A";
+        }
+
+
+        return database.rawQuery("SELECT * from " + TABLE_NAME + " WHERE " + COLUMN_NAME + " LIKE '" + name.substring(0, 2) +
+                "%' OR " + COLUMN_CATEGORY + " LIKE '" + category.substring(0, 2) + "%' ORDER BY " + COLUMN_DATE + " DESC ;", null);
     }
 
 
