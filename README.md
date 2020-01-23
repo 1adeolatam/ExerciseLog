@@ -1,13 +1,15 @@
 # ExerciseLog
 Android Exercise Tracker
 
-![Screenshot](/ExerciseLog.png){:height="50%" width="50%"}
-Format: ![App Screenshot](https://github.com/1adeolatam/ExerciseLog/ExerciseLog.png)
-
+<img src="https://github.com/1adeolatam/ExerciseLog/blob/master/ExerciseLog.png" width="400" height="700">
 
 Android application that keeps record of completed exercises.
 
-swipe entry left or right to delete
+# How to Use
+
 
 Record entry by entering data and then pressing the submit button.
-Search by entering name or category of exercise then pressing the search button.
+
+Swipe entry left or right to delete.
+
+Search by entering name or category of exercise then pressing search button.
