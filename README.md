@@ -1,7 +1,7 @@
 # ExerciseLog
 Android Exercise Tracker
 
-![Screenshot](/ExerciseLog.png)
+![Screenshot](/ExerciseLog.png){:height="50%" width="50%"}
 Format: ![App Screenshot](https://github.com/1adeolatam/ExerciseLog/ExerciseLog.png)
 
 
