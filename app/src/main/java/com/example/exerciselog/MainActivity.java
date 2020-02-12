@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Cursor getSearch(String name, String category) {
-        //If both are null, just return entire database
+        //If both are null, return entire Database
         if (category.trim().equals("") && name.trim().equals("")) {
             return database.query(TABLE_NAME,
                     null,
@@ -197,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
                     COLUMN_DATE + " DESC");
         }
 
-
         if (name.trim().equals("")) {
             name = "N/A";
         }
@@ -206,8 +205,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        return database.rawQuery("SELECT * from " + TABLE_NAME + " WHERE " + COLUMN_NAME + " LIKE '" + name.substring(0, 2) +
-                "%' OR " + COLUMN_CATEGORY + " LIKE '" + category.substring(0, 2) + "%' ORDER BY " + COLUMN_DATE + " DESC ;", null);
+        return database.rawQuery("SELECT * from " + TABLE_NAME + " WHERE " + COLUMN_NAME + " LIKE '%" + name + "%' AND "
+                + COLUMN_CATEGORY + " LIKE '%" + category + "%' ORDER BY " + COLUMN_DATE + " DESC ;", null);
     }
 
 

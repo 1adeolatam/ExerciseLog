@@ -34,7 +34,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 COLUMN_WEIGHT + " REAL NOT NULL," +
                 COLUMN_DISTANCE + " REAL NOT NULL," +
                 COLUMN_COMMENT + " TEXT NOT NULL," +
-                COLUMN_DATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" + ");";
+                COLUMN_DATE + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" + ");"; // Save the time in UTC timestamp, but have it display in local time.
         db.execSQL(CREATE_TABLE);
     }
 
