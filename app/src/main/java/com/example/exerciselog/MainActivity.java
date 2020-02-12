@@ -97,19 +97,19 @@ public class MainActivity extends AppCompatActivity {
                     comment = CommentInp.getText().toString() + "\n";
                 }
 
-                Float distance;
+                float distance;
                 if (DistanceInp.getText().toString().trim().equals("")) {
                     distance = Float.parseFloat("0.0f");
                 } else {
                     distance = Float.parseFloat(DistanceInp.getText().toString());
                 }
-                Integer reps;
+                int reps;
                 if (RepsInp.getText().toString().trim().equals("")) {
                     reps = Integer.parseInt("0");
                 } else {
                     reps = Integer.parseInt(RepsInp.getText().toString());
                 }
-                Float weight;
+                float weight;
                 if (WeightInp.getText().toString().trim().equals("")) {
                     weight = Float.parseFloat("0.0f");
                 } else {
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        return database.rawQuery("SELECT * from " + TABLE_NAME + " WHERE " + COLUMN_NAME + " LIKE '%" + name + "%' AND "
+        return database.rawQuery("SELECT * from " + TABLE_NAME + " WHERE " + COLUMN_NAME + " LIKE '%" + name + "%' OR "
                 + COLUMN_CATEGORY + " LIKE '%" + category + "%' ORDER BY " + COLUMN_DATE + " DESC ;", null);
     }
 
